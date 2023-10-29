@@ -2,41 +2,24 @@
 <html>
     <head>
         <style>
-            .text{
-                font-family: Arial, Helvetica, sans-serif;
-                font-size: 50px;
-                text-align: center;
+            body{
+                background-image: url("backgroundForGuessTheNumberGame.png");
             }
 
-            .lessThen{
-                color: rgb(255, 42, 42);
-                opacity: 1;
-                animation-name: lessThen_dance;
-                animation-duration: 5s;
-                animation-iteration-count: infinite;
+            span{
+                text-align: center;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 50px;
+                font-weight: bold;
             }
-            .moreThen{
-                color: rgb(69, 69, 255);
-                opacity: 0;
-                animation-name: morethen_dance;
-                animation-duration: 5s;
-                animation-iteration-count: infinite;
-            }           
-            @keyframes lessThen_dance {
-                from{opacity: 1;}
-                to{opacity: 0;}
-            }
-            @keyframes moreThen_dance {
-                from{opacity: 0;}
-                to{opacity: 1;}
-            }
+
             .game{
                 position: absolute;
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%,-50%);
             }
-            #Submit, #play_again{
+            #Submit{
                 width: 80px;
                 height: 38px;
                 font-size: 20px;
@@ -47,9 +30,6 @@
                 white-space: nowrap;
                 transition: box-shadow 0.3s ease-in-out,scale 0.3s ease-in-out;
             }
-            #play_again{
-                display: none;
-            }
             #Submit:hover{
                 box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.515);
             }
@@ -59,12 +39,13 @@
 
             #Less_then{
                 position: absolute;
-                top: -40%;
+                top: -60%;
                 left: 40%;
-                transform: translate(-40%,-40%);
+                transform: translate(-50%,-50%);
                 opacity: 0;
                 transition: color 0.3s ease-in-out,opacity 0.3s ease-in-out;
                 white-space: nowrap;
+               
             }
             #checkNumber{
                 box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.515);
@@ -72,59 +53,98 @@
                 border-radius:10px;
                 width: 250px;
                 height: 38px;
+                font-style:italic;
                 font-family: Arial, Helvetica, sans-serif;
-                font-size: 20px;
+                font-size: 17.7px;
                 transition: scale 0.4s ease-in-out;
             }
             #checkNumber:focus{
-                scale: 101%;
+                scale: 99%;
             }
+            .Div{
+                visibility: hidden;
+                opacity: 0;
+                position: absolute;
+                width: 400px;
+                height: 250px;
+                background-color: rgb(67, 120, 255);
+                border: 2px solid rgb(61, 102, 207);
+                border-radius: 10px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                transition: opacity 0.9s ease-in-out,visibility 0.9s ease-in-out;
+                text-align: center;
+
+            }
+        .btn,.btnn{
+            width: 150px;
+            height: 45px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: large;
+            background-color: rgb(67, 177, 255);
+            
+            border: 0.6px black solid;
+            position: absolute;
+            top: 50%;
+            left: 23%;
+            transform: translate(-50%,-50%);
+        }
+        .btnn{
+            position: absolute;
+            top: 50%;
+            left: 75%;
+            transform: translate(-50%,-50%);
+        }
         </style>
     </head>
     <body>
-        <h1 class="text">
-            <span class="lessThen">Less Then</span>
-            <span>Or</span>
-            <span class="moreThen">More Then</span>
         <div class="game">
-            <input placeholder="Type Number Between  0 to 100" id="checkNumber">
-            <button id="Submit">Check?</button>
-            <span id="Less_then"> </span>
-        <a href="game.html" target="_self">
-            
-            <button id="play_again">Play Again?</button>
-        </a>
+        <input placeholder="Type Number Between 0 to 100" id="checkNumber">
+        <button id="Submit">Check?</button>
+        <span id="Less_then"> </span>
+        <div class="Div" id="menu">
+            <span id="when_win">Win</span>
+            <button class="btn" id ="play_again">Play again?</button>
+            <button class="btnn" id="guess">guess 0</button>
         </div>
-        </h1>
         <script>
             function random_number(){
                 return Math.floor(Math.random() * 101)
             }
+            function stuff(color,opacity,text,transition){
+                Less_then.textContent = text
+                Less_then.style.transition = transition
+                Less_then.style.color = color
+                Less_then.style.opacity = opacity
+            }
             let random_Value = random_number()
+            let playAgain = document.getElementById("play_again")
+            let guess = 0
+            console.log(random_Value)
             document.getElementById('Submit').onclick = function() {
                 let valuee = document.getElementById('checkNumber').value
                 let Less_then = document.getElementById("Less_then")
-
+                guess++
                 if (valuee == random_Value) {
-                    Less_then.textContent = "You Won 🏆 !"
-                    Less_then.style.transition = 'transition: color 0.3s ease-in-out,opacity 0.3s ease-in-out'
-                    Less_then.style.color = "yellow"
-                    Less_then.style.opacity = "1"
-                    document.getElementById("play_again").style.display = "block"
+                    document.getElementById('when_win').textContent = "You Won 🏆 !"
+                    Less_then.style.transition = 'color 0.3s ease-in-out,opacity 0.3s ease-in-out'
+                    document.getElementById('when_win').style.color = "yellow"
+                    document.getElementById("menu").style.visibility = "visible"
+                    document.getElementById("menu").style.opacity = "1"
+                    document.getElementById("guess").textContent = `guess ${guess}`
                 }
                 else if  (valuee > random_Value) {
-                    Less_then.textContent = "Less Then"
-                    Less_then.style.transition = 'transition: color 0.3s ease-in-out,opacity 0.3s ease-in-out'
-                    Less_then.style.color = "red"
-                    Less_then.style.opacity = "1"
+                    stuff("red","1","Less Then","color 0.3s ease-in-out,opacity 0.3s ease-in-out")
 
                 }
                 else if (valuee < random_Value) {
-                    Less_then.textContent = "More Then"
-                    Less_then.style.transition = 'transition: color 0.3s ease-in-out,opacity 0.3s ease-in-out'
-                    Less_then.style.color = "blue"
-                    Less_then.style.opacity = "1"
-
+                    stuff("rgb(117, 205, 255)","1","More Then","color 0.3s ease-in-out,opacity 0.3s ease-in-out")
+                }
+                playAgain.onclick = function() {
+                    random_Value = random_number()
+                    document.getElementById("menu").style.visibility = "hidden"
+                    document.getElementById("menu").style.opacity = "0"
                 }
             }
         </script>

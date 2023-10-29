@@ -7,7 +7,6 @@
                 background-size: fill;
                 width: 30px;
                 height: 30px;
-                transition: background-image 0.4s ease-in-out;
             }
             .div_stuff{
                 position: absolute;
@@ -43,9 +42,8 @@
                 background-color: yellow;
                 color:  rgb(82, 177, 255);;
             }
-
             .x:active{
-                scale: 95%;
+                scale: 99%;
             }
         </style>
     </head>
@@ -56,12 +54,6 @@
             </a>
         </div>
         <script>
-            document.querySelector('.x').addEventListener("mouseenter",function() {
-                document.body.style.backgroundImage = 'url("on_hover_background.png")'
-            });
-            document.querySelector('.x').addEventListener("mouseleave",function() {
-                document.body.style.backgroundImage = 'url("image.png")'
-            });
 
         </script>
     </body>
