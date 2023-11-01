@@ -118,13 +118,13 @@
                 Less_then.style.color = color
                 Less_then.style.opacity = opacity
             }
-            const random_Value = random_number()
+            let random_Value = random_number()
             const playAgain = document.getElementById("play_again")
             let guess = 0
             console.log(random_Value)
             document.getElementById('Submit').onclick = function() {
-                let valuee = document.getElementById('checkNumber').value
-                let Less_then = document.getElementById("Less_then")
+                const valuee = document.getElementById('checkNumber').value
+                const Less_then = document.getElementById("Less_then")
                 guess++
                 if (valuee == random_Value) {
                     document.getElementById('when_win').textContent = "You Won 🏆 !"
